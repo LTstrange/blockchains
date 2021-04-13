@@ -19,7 +19,7 @@ class BlockChain:
 
         # todo: 使用公钥私钥替换 identifier
         self.host = None
-        self.node_identifier = str(uuid4()).replace('-', '')
+        self.Account = str(uuid4()).replace('-', '')
         self.nodes = set()
 
         # create the genesis block
@@ -47,7 +47,7 @@ class BlockChain:
         # The sender is "0" to signify that this node has mined a new coin.
         self.new_transaction({
             "sender": '0',
-            "recipient": self.node_identifier,
+            "recipient": self.Account,
             "amount": 1,
         })
 

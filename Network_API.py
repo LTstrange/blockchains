@@ -3,7 +3,7 @@
 # @Author  : LTstrange
 import requests
 from Blockchain import BlockChain
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect
 
 # Instantiate our Node
 app = Flask(__name__)
@@ -18,12 +18,23 @@ def index():
     blockchain.host = request.host
     blockchain.register_node(blockchain.host)
     if request.method == 'GET':
-        return render_template('index.html', host=blockchain.host, identifier=blockchain.node_identifier)
+        return render_template('index.html', host=blockchain.host, identifier=blockchain.Account)
 
 
-@app.route('/login')
+@app.route('/login/Page', methods=['GET'])
 def login():
-    return "Login Page", 200
+    return render_template('login.html'), 200
+
+
+@app.route('/login_account', methods=['POST'])
+def login_account():
+    account = request.form
+
+    account = account['Account']
+
+    blockchain.Account = account
+
+    return redirect('/')
 
 
 @app.route('/manual/transactions/get', methods=['GET'])
