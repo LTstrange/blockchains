@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Nodes Page</title>
+</head>
+<body>
+<h1>Nodes Page</h1>
+<p>
+    Nodes:
+<table>
+    {% for value in nodes %}
+    <tr>
+        <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

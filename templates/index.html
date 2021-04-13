@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>区块链：课程实践</title>
+</head>
+<body>
+<p>本机地址：{{host}}</p>
+<p>当前账号：{{identifier}}</p>
+<h1>区块链：课程实践</h1>
+<p><a href="/chain"> GET</a> all Blockchain</p>
+<p>Manual <a href="/mine">Mine</a> a block </p>
+
+<h2>Transaction Part</h2>
+<p>New Transaction</p>
+<form action="/manual/new_transaction" method="post">
+    <table>
+        <tr>
+            <td>Sender:</td>
+            <td><label>
+                <input type="text" name="sender">
+            </label></td>
+        </tr>
+        <tr>
+            <td>Recipient:</td>
+            <td><label>
+                <input type="text" name="recipient">
+            </label></td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td><label>
+                <input type="number" name="amount">
+            </label></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+
+<h2>Consensus Part</h2>
+<p>
+    <a href="/get_nodes">View</a> stored nodes.
+    <a href="/nodes/resolve">Resolve</a> conflicts.
+</p>
+<p>Manualy add another node
+<form action="/manual/Set_node" method="post">
+    <table>
+        <tr>
+            <td>another node's host:</td>
+            <td><label>
+                <input type="text" name="host">
+            </label></td>
+        </tr>
+        <tr>
+            <td>another node's port:</td>
+            <td><label>
+                <input type="text" name="port">
+            </label></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+<p>Auto search other nodes
+<form action="/nodes/Search" method="get">
+    <input type="submit" value="Search">
+</form>
+</body>
+</html>
