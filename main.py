@@ -10,4 +10,3 @@ if __name__ == '__main__':
     port = 5000
     blockchain.get_host(ip, port)
     app.run(host=ip, port=port, debug=True)
-

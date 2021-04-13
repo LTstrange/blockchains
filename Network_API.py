@@ -26,12 +26,30 @@ def login():
     return "Login Page", 200
 
 
+@app.route('/manual/transactions/get', methods=['GET'])
+def get_current_transactions():
+    return jsonify(blockchain.current_transactions), 201
+
+
 @app.route('/manual/new_transaction', methods=['POST'])
 def new_transaction_manually():
     transaction = request.form
 
     # Create a new Transaction
     if blockchain.new_transaction(transaction):
+
+        for node in blockchain.nodes:
+            if node == blockchain.host:
+                continue
+            try:
+                transactions = {
+                    "transactions": blockchain.current_transactions,
+                }
+                requests.post(f"http://{node}/transactions/new", json=transactions,
+                              timeout=0.5)
+            except requests.exceptions.Timeout:
+                continue
+
         response = {'message': f'Transaction Submitted!'}
 
         return jsonify(response), 201
@@ -158,7 +176,7 @@ def search_nodes():
             resp = requests.post(f"http://{node}/sync_nodes", json=self_nodes, timeout=0.5).json()
             nodes = resp['total_nodes']
             add_nodes.update(nodes)
-        except requests.exceptions.ConnectionError:
+        except requests.exceptions.Timeout:
             pass
     for node in add_nodes:
         blockchain.register_node(node)
